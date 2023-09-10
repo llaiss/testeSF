@@ -1,0 +1,72 @@
+PennController.ResetPrefix(null); 
+PennController.DebugOff();
+
+Sequence("Participante", "Termo", "Instrucoes", randomize ("Experimento"), Sendresults(), "Final");
+
+
+
+newTrial("Participante",
+    defaultText
+    .css("font-size","1.2em")
+    .print()
+    ,
+
+      newText("<p><b>QUESTIONÁRIO DE AVALIAÇÃO DE SIMILARIDADE</b></p>") 
+			, 
+			newText("<p>Bem-Vind@s!</p>") 
+			, 
+			newText("<p>Neste teste, você vai ouvir uma palavra em português e, em seguida, a repetição da primeira sílaba feita por outra pessoa. </p>") 
+			, 
+			newText("<p>Não há certo ou errado; o intuito do teste é identificar o que é mais semelhante de acordo com a <i>sua</i> percepção. </p>") 
+			, 
+			newText("<p>Considerando 1 como <u>nada similar</u> e 5 como <u>muito similar</u>, avalie a semelhança entre as pronúncias. </p>") 
+			, 
+			newText("<p>Por favor, escreva seu NOME COMPLETO, sem abreviações, na caixa abaixo.</p>") 
+			,
+
+//Cria uma caixa de texto nomedada "Nome" para receber o nome do participante  
+      newTextInput("Nome")
+      ,
+      newText("<p>Por favor, escreva o seu E-MAIL na caixa abaixo.</p>")
+      ,
+      newTextInput("Email")
+      ,
+      newText("<p>Escreva sua IDADE na caixa a abaixo. (Exemplo: 25)</p>")
+      ,
+      newTextInput("Idade")
+      ,
+      newText("<p>Agora selecione sua ESCOLARIDADE na caixa abaixo e aperte o botão 'Iniciar' para avançar.</p>")
+      , 
+
+//Cria uma caixa com seletores nomeada "Escolaridade" para que o participante selecione sua escolaridade
+      newDropDown("Escolaridade", "Selecione sua escolaridade")
+      .add("Médio completo", "Superior em curso", "Superior completo", "Pós-graduação")
+      .css("font-size","1.2em")
+                  .print()
+                  .log() //Envia para o arquivo "results" a opção selecionada pelo participante 
+         ,
+
+//Cria um botão nomeado "Iniciar"
+         newButton("Iniciar")
+         ,
+
+//Cria uma nova variável chamada "NOME" que recebe o conteúdo da caixa de texto "Nome"
+         newVar("NOME")
+                  .global()
+                  .set( getTextInput("Nome") )
+         ,
+         newVar("EMAIL")
+                  .global()
+                  .set( getTextInput("Email") )
+          ,
+         newVar("IDADE")
+                  .global()
+                  .set( getTextInput("Idade") )
+         
+)
+
+//Envia para o arquivo "results" o conteúdo da variável "NOME"
+.log( "NOME" , getVar("NOME") )
+
+
+
